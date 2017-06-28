@@ -26,16 +26,19 @@ function calculateSalesTax(salesData, taxRates) {
   var companyTaxData = {}
   for (var i = 0; i < companySalesData.length; i ++) {
     var company = companySalesData[i]
+    var name = company['name']
+    var province = company['province']
+    var sales = company['sales']
 
-    if (companyTaxData[company['name']] !== undefined) {
-      companyTaxData[company['name']]['totalSales'] += calculateTotalSales(company['sales'])
-      companyTaxData[company['name']]['totalTaxes'] += calculateTotalTaxes(company['province'], company['sales'])
+    if (companyTaxData[name] !== undefined) {
+      companyTaxData[name]['totalSales'] += calculateTotalSales(sales)
+      companyTaxData[name]['totalTaxes'] += calculateTotalTaxes(province, sales)
       continue
     }
 
-    companyTaxData[company['name']] = {
-      totalSales: calculateTotalSales(company['sales']),
-      totalTaxes: calculateTotalTaxes(company['province'], company['sales'])
+    companyTaxData[name] = {
+      totalSales: calculateTotalSales(sales),
+      totalTaxes: calculateTotalTaxes(province, sales)
     };
   };
   console.log(companyTaxData);
